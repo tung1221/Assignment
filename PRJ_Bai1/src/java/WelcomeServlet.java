@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,7 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author ntung
  */
-public class SimpleServlet extends HttpServlet {
+public class WelcomeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +29,17 @@ public class SimpleServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            String user = request.getParameter("user");
-            String pass = request.getParameter("pass");
-            ServletContext sc = getServletContext();
-            String pUser = sc.getInitParameter("username");
-            String pPass = sc.getInitParameter("password");
-            if (user.equals(pUser) && pass.equals(pPass)) {
-                response.sendRedirect("WelcomeServlet");
-            }else
-            {
-                out.write("login fail");
-                response.sendRedirect("index.html");
-            }
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet WelcomeServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>login sucessfull" + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

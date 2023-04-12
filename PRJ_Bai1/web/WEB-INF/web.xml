@@ -1,12 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>username</param-name>
+        <param-value>abc</param-value>
+    </context-param>
+    <context-param>
+        <param-name>password</param-name>
+        <param-value>12345</param-value>
+    </context-param>
     <servlet>
         <servlet-name>SimpleServlet</servlet-name>
         <servlet-class>SimpleServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <servlet-class>WelcomeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CalServlet</servlet-name>
+        <servlet-class>CalServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SimpleServlet</servlet-name>
         <url-pattern>/SimpleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/WelcomeServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CalServlet</servlet-name>
+        <url-pattern>/CalServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
