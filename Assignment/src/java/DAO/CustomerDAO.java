@@ -21,10 +21,10 @@ public class CustomerDAO extends DBConnect{
     
     public static void main(String[] args) throws SQLException {
         CustomerDAO dao = new CustomerDAO();
-        Customer cus=dao.getCustomer("sa", "123456");
-        System.out.println(cus);
-//       int n=dao.addCustomer(new Customer("c09", "Manh", "huongcon01", "123456", "Haiphog", "094392", 1) );
-//       if(n>0) System.out.println("add!");
+//        Customer cus=dao.getCustomer("sa", "123456");
+//        System.out.println(cus);
+       int n=dao.addCustomer(new Customer("c09", "Manh", "huongcon01", "123456", "Haiphog", "094392", 1) );
+       if(n>0) System.out.println("add!");
     }
     
     public int addCustomer(Customer customer){
