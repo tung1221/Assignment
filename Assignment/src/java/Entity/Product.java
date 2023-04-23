@@ -1,12 +1,12 @@
 package Entity;
 
 public class Product {
-    String pid, pname;
+    String pid, pname,cateName;
     int quantity;
     double price;
     String image, description;
     int status, cateID;
-
+    
     public Product(String pid, String pname, int quantity, double price, String image, String description, int status, int cateID) {
         this.pid = pid;
         this.pname = pname;
@@ -18,8 +18,29 @@ public class Product {
         this.cateID = cateID;
     }
 
+    public Product(String pid, String pname, String cateName, int quantity, double price, String image, String description, int status, int cateID) {
+        this.pid = pid;
+        this.pname = pname;
+        this.cateName = cateName;
+        this.quantity = quantity;
+        this.price = price;
+        this.image = image;
+        this.description = description;
+        this.status = status;
+        this.cateID = cateID;
+    }
+    
+
     public String getPid() {
         return pid;
+    }
+
+    public String getCateName() {
+        return cateName;
+    }
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
     }
 
     public void setPid(String pid) {

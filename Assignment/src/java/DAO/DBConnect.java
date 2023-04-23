@@ -8,7 +8,7 @@ public class DBConnect {
     public Connection conn = null;
 
     public DBConnect() {
-        this("jdbc:sqlserver://localhost:1433;databaseName=SE1704;encrypt=false", "sa", "123456");
+        this("jdbc:sqlserver://localhost:1433;databaseName=Asignment;encrypt=false", "sa", "123456");
     }
 
     public DBConnect(String url, String userName, String pass) {

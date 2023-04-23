@@ -12,7 +12,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
+        <title>Product Manager</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,6 +27,7 @@
             }
         </style>
     <body>
+        
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -35,8 +36,12 @@
                             <h2>Manage <b>Product</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-                            <a href="#deleteEmployeeModal" class="btn btn-danger" data-toggle="modal"><i class="material-icons">&#xE15C;</i> <span>Delete</span></a>						
+                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>                            
+                            <form>
+                                <input type="hidden" name="go" value="listall">
+                                <input type="text"name="search">
+                                <input class="btn-primary" type="submit" value="search">
+                            </form> 
                         </div>
                     </div>
                 </div>
@@ -51,13 +56,16 @@
                             </th>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
                             <th>Image</th>
                             <th>Price</th>
-                            <th>Actions</th>
+                            <th>Description</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <c:forEach items="${listP}" var="o">
+                            <c:forEach items="${vec}" var="o">
                             <tr>
                                 <td>
                                     <span class="custom-checkbox">
@@ -65,60 +73,67 @@
                                         <label for="checkbox1"></label>
                                     </span>
                                 </td>
-                                <td>${o.id}</td>
-                                <td>${o.name}</td>
+                                <td>${o.pid}</td>
+                                <td>${o.pname}</td>
+                                <td>${o.cateName}</td>
+                                <td>${o.quantity}</td>
                                 <td>
-                                    <img src="${o.image}">
+                                    <img src="https://image.yes24.vn/Upload/ProductImage/GmarketSport/2058803_L.jpg?width=550&height=550">
                                 </td>
-                                <td>${o.price} $</td>
+                                <td>${o.price}</td>
+                                <td>${o.description}</td>
+                                <td>${o.status == 1 ? "Enable" : "Disable"}</td>
                                 <td>
                                     <a href="#editEmployeeModal"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="#deleteEmployeeModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <a href="deleteProduct?pid=${o.pid}" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
                                 </td>
                             </tr>
                         </c:forEach>
                     </tbody>
                 </table>
-                <div class="clearfix">
-                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                    </ul>
-                </div>
+                
             </div>
+            <a href="#"><button type="button" class="btn btn-primary">Back to home</button>
+
         </div>
         <!-- Edit Modal HTML -->
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="add" method="post">
+                    <form action="addProduct" method="post">
                         <div class="modal-header">						
                             <h4 class="modal-title">Add Product</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
-                        <div class="modal-body">					
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label>product id</label>
+                                <input name="id" type="text" class="form-control" required>
+                            </div>
                             <div class="form-group">
                                 <label>Name</label>
                                 <input name="name" type="text" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input name="quantity" type="number" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>price</label>
+                                <input name="price" type="number" min="0" step="any" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label>Image</label>
                                 <input name="image" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label>Price</label>
-                                <input name="price" type="text" class="form-control" required>
+                                <label>status</label>
+                                <select name="status">
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
                             </div>
-                            <div class="form-group">
-                                <label>Title</label>
-                                <textarea name="title" class="form-control" required></textarea>
-                            </div>
+                          
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" required></textarea>
@@ -126,8 +141,8 @@
                             <div class="form-group">
                                 <label>Category</label>
                                 <select name="category" class="form-select" aria-label="Default select example">
-                                    <c:forEach items="${listC}" var="o">
-                                        <option value="${o.id}">${o.name}</option>
+                                    <c:forEach items="${listCate}" var="o">
+                                        <option value="${o.cateId}">${o.cateName}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -176,30 +191,8 @@
                 </div>
             </div>
         </div>
-        <!-- Delete Modal HTML -->
-        <div id="deleteEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Delete Product</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <p>Are you sure you want to delete these Records?</p>
-                            <p class="text-warning"><small>This action cannot be undone.</small></p>
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-danger" value="Delete">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-        <script src="js/manager.js" type="text/javascript"></script>
-        <script>
-               
-        </script>
-    </body>
+        
+        
+    <script src="js/manager.js" type="text/javascript"></script>
+</body>
 </html>

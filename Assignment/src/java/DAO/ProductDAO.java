@@ -20,12 +20,12 @@ public class ProductDAO extends DBConnect{
     public static void main(String[] args) throws SQLException {
         ProductDAO dao = new ProductDAO();
         Product Pro= new Product("p99","galaxy" , 100, 900, null, "new", 1, 1);
-        dao.addProd(Pro);
+        dao.AddProduct(Pro);
 //        }
 
     }
     
-    public int AddProduct(Product product){
+    public void AddProduct(Product product){
         int n=0;
         String sql = "INSERT INTO [dbo].[Product]\n" +
                 "([pid]\n" +
@@ -51,10 +51,10 @@ public class ProductDAO extends DBConnect{
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
+        //return n;
     }
     
-    public int updateProduct(Product product){
+    public void updateProduct(Product product){
         int n=0;
         String sql = "UPDATE [dbo].[Product]\n" +
                 "   SET [pname] = ?\n" +
@@ -79,7 +79,7 @@ public class ProductDAO extends DBConnect{
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
+        //return n;
     }
     
     private Product getProduct(ResultSet rs) throws SQLException{
@@ -91,7 +91,8 @@ public class ProductDAO extends DBConnect{
         String description = rs.getString("description");
         int status = rs.getInt("status");
         int cateId = rs.getInt("cateId");
-        return new Product(pID, pName, quantity, price, image, description, status, cateId);
+        String cateName=rs.getString("cateName");
+        return new Product(pID, pName, cateName, quantity, price, image, description, status, cateId);
     }
     
     public Vector<Product> getAllProduct(String sql){
@@ -108,7 +109,7 @@ public class ProductDAO extends DBConnect{
         return vec;
     }
     
-    public int removeProductWithCascade(String id) {
+    public void removeProductWithCascade(String id) {
         int n = 0;
         String sql2 = "DELETE FROM [dbo].[Product]\n" +
                 "      WHERE [pid] = ?";
@@ -124,7 +125,7 @@ public class ProductDAO extends DBConnect{
         } catch (SQLException ex) {
             Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n;
+        
     }
     
     public Product getBestSeller(){ //get product with highest quantity
@@ -133,7 +134,7 @@ public class ProductDAO extends DBConnect{
         Product prod=vec.elementAt(0);
         int highestQuantity=prod.getQuantity();
         for (Product product : vec) {
-            if(product.getQuantity()>highestQuantity){
+            if(product.getQuantity()<highestQuantity){
                 prod=product;
                 highestQuantity=prod.getQuantity();
             }
@@ -156,9 +157,7 @@ public class ProductDAO extends DBConnect{
         return null;
     }
     
-    public void addProd(Product prod){
-        int n=AddProduct(prod);
-    }
+    
     public void deleteProduct(String pid) {
         String sql = "DELETE FROM [dbo].[Product]\n"
                 + "      WHERE pid = ?";
