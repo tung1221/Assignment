@@ -3,22 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package ProductController;
+package HomeController;
 
+import DAO.CategoryDAO;
 import DAO.ProductDAO;
+import Entity.Category;
 import Entity.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.util.Vector;
 
 /**
  *
  * @author HLC
  */
-public class addProduct extends HttpServlet {
+public class HomeControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -30,18 +32,17 @@ public class addProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id=request.getParameter("id").trim();
-        String name=request.getParameter("name").trim();
-        int quantity=Integer.parseInt(request.getParameter("quantity").trim());
-        Double price=Double.parseDouble(request.getParameter("price").trim());
-        String image=request.getParameter("image").trim();
-        String description= request.getParameter("description").trim();
-        int status=Integer.parseInt(request.getParameter("status").trim());
-        int cateId=Integer.parseInt(request.getParameter("category").trim());
-        Product product=new Product(id, name, quantity, price, image, description, status, cateId);
-        ProductDAO dao= new ProductDAO();
-        dao.AddProduct(product);
-        response.sendRedirect("lists");
+        
+        ProductDAO prodDao = new ProductDAO();
+        Vector<Product> listP =prodDao.getAllProduct1("select * from Product");
+        Product prod=prodDao.getBestSeller();
+        CategoryDAO cateDao= new CategoryDAO();
+        Vector<Category> listCC =cateDao.getAllCategory("select * from Category");
+        
+        request.setAttribute("listP", listP);
+        request.setAttribute("listCC", listCC);
+        request.setAttribute("p", prod);
+        request.getRequestDispatcher("Home.jsp").forward(request, response);
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

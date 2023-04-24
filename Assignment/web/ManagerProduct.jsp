@@ -26,6 +26,20 @@
                 height: 120px;
             }
         </style>
+        <script type="text/javascript">
+$(document).ready(function(){
+        // Activate tooltip
+        $('[data-toggle="tooltip"]').tooltip();
+	
+        $('.table .delete').on('click', function() {
+            var id=$(this).parent().find('#id').val();
+            $('#deleteEmployeeModal #id').val(id);
+        } );
+        
+        
+});
+        </script>
+    </head>    
     <body>
         
         <div class="container">
@@ -37,7 +51,7 @@
                         </div>
                         <div class="col-sm-6">
                             <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>                            
-                            <form>
+                            <form action="lists" method="post">
                                 <input type="hidden" name="go" value="listall">
                                 <input type="text"name="search">
                                 <input class="btn-primary" type="submit" value="search">
@@ -78,14 +92,19 @@
                                 <td>${o.cateName}</td>
                                 <td>${o.quantity}</td>
                                 <td>
-                                    <img src="https://image.yes24.vn/Upload/ProductImage/GmarketSport/2058803_L.jpg?width=550&height=550">
+                                    <img src="${o.image}">
                                 </td>
                                 <td>${o.price}</td>
                                 <td>${o.description}</td>
                                 <td>${o.status == 1 ? "Enable" : "Disable"}</td>
                                 <td>
-                                    <a href="#editEmployeeModal"  class="edit" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                                    <a href="deleteProduct?pid=${o.pid}" ><i class="material-icons"  title="Delete">&#xE872;</i></a>
+                                    <a href="editProduct?id=${o.pid}"  class="edit" 
+                                       data-toggle="modal"><i class="material-icons" 
+                                            data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                                    <a href="#deleteEmployeeModal" class="delete" 
+                                       data-toggle="modal"><i class="material-icons" 
+                                            data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+                                    <input type="hidden" name="id" id="id" value="${o.pid}">
                                 </td>
                             </tr>
                         </c:forEach>
@@ -96,7 +115,7 @@
             <a href="#"><button type="button" class="btn btn-primary">Back to home</button>
 
         </div>
-        <!-- Edit Modal HTML -->
+        <!-- add Modal HTML -->
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -156,43 +175,32 @@
                 </div>
             </div>
         </div>
-        <!-- Edit Modal HTML -->
-        <div id="editEmployeeModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Edit Employee</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Address</label>
-                                <textarea class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Phone</label>
-                                <input type="text" class="form-control" required>
-                            </div>					
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-info" value="Save">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+        
+        <!-- delete Modal HTML -->
+    <div id="deleteEmployeeModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+                    <form method="post" action="deleteProduct">
+				<div class="modal-header">						
+					<h4 class="modal-title">Delete Product</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				</div>
+				<div class="modal-body">					
+					<p>Are you sure you want to delete these Records?</p>
+					<p class="text-warning"><small>This action cannot be undone.</small></p>
+				</div>
+				<div class="modal-footer">
+					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+					<input type="submit" class="btn btn-danger" value="Delete">
+                                        <input type="hidden" name="id" id="id">
+				</div>
+			</form>
+		</div>
+	</div>
+</div>    
+         
         
         
-    <script src="js/manager.js" type="text/javascript"></script>
+    
 </body>
 </html>

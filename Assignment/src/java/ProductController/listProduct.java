@@ -32,11 +32,22 @@ public class listProduct extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         ProductDAO dao= new ProductDAO();
-        Vector<Product> vec = dao.getAllProduct("select p.pid,p.pname,p.quantity,p.price,p.image,p.description,p.status,\n"
+        String search= request.getParameter("search");
+        String sql;
+        if (request.getParameter("search")!=null) {
+            
+            sql = "select p.pid,p.pname,p.quantity,p.price,p.image,p.description,p.status,\n"
                 + "p.cateId,c.cateName\n"
                 + "from Product p join Category c\n"
-                + "on p.cateId=c.cateId");
+                + "on p.cateId=c.cateId where p.pid like %"+search +"% or p.pname like %"+search +"% or p.price like %"+search +"% or p.price like"+search+"% or p.description like"+search+"%";
+        }else
+            sql ="select p.pid,p.pname,p.quantity,p.price,p.image,p.description,p.status,\n"
+                + "p.cateId,c.cateName\n"
+                + "from Product p join Category c\n"
+                + "on p.cateId=c.cateId";
+        Vector<Product> vec = dao.getAllProduct(sql);
         request.setAttribute("vec", vec);
         CategoryDAO cateDAO= new CategoryDAO();
         Vector<Category> listCate=cateDAO.getAllCategory("select * from Category");

@@ -12,6 +12,14 @@
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>ProductController.DeleteProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeControl</servlet-name>
+        <servlet-class>HomeController.HomeControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editProduct</servlet-name>
+        <servlet-class>ProductController.editProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listProduct</servlet-name>
         <url-pattern>/lists</url-pattern>
@@ -23,6 +31,14 @@
     <servlet-mapping>
         <servlet-name>DeleteProduct</servlet-name>
         <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeControl</servlet-name>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editProduct</servlet-name>
+        <url-pattern>/editProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

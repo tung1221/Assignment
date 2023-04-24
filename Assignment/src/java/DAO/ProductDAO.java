@@ -19,8 +19,8 @@ import java.util.logging.Logger;
 public class ProductDAO extends DBConnect{
     public static void main(String[] args) throws SQLException {
         ProductDAO dao = new ProductDAO();
-        Product Pro= new Product("p99","galaxy" , 100, 900, null, "new", 1, 1);
-        dao.AddProduct(Pro);
+        Product Pro=dao.getBestSeller();
+        System.out.println(Pro);
 //        }
 
     }
@@ -94,6 +94,18 @@ public class ProductDAO extends DBConnect{
         String cateName=rs.getString("cateName");
         return new Product(pID, pName, cateName, quantity, price, image, description, status, cateId);
     }
+    private Product getProduct1(ResultSet rs) throws SQLException{
+        String pID = rs.getString("pid");
+        String pName = rs.getString("pname");
+        int quantity = rs.getInt("quantity");
+        double price = rs.getDouble("price");
+        String image = rs.getString("image");
+        String description = rs.getString("description");
+        int status = rs.getInt("status");
+        int cateId = rs.getInt("cateId");
+        
+        return new Product(pID, pName, quantity, price, image, description, status, cateId);
+    }
     
     public Vector<Product> getAllProduct(String sql){
         Vector<Product> vec= new Vector<>();
@@ -101,6 +113,20 @@ public class ProductDAO extends DBConnect{
         try {
             while(rs.next()){
                 Product pro= getProduct(rs);
+                vec.add(pro);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return vec;
+    }
+    
+    public Vector<Product> getAllProduct1(String sql){
+        Vector<Product> vec= new Vector<>();
+        ResultSet rs=this.getData(sql);
+        try {
+            while(rs.next()){
+                Product pro= getProduct1(rs);
                 vec.add(pro);
             }
         } catch (SQLException ex) {
@@ -130,11 +156,11 @@ public class ProductDAO extends DBConnect{
     
     public Product getBestSeller(){ //get product with highest quantity
         Vector<Product> vec= new Vector<>();
-        vec=getAllProduct("select * from Product");
+        vec=getAllProduct1("select * from Product");
         Product prod=vec.elementAt(0);
         int highestQuantity=prod.getQuantity();
         for (Product product : vec) {
-            if(product.getQuantity()<highestQuantity){
+            if(product.getQuantity() >= highestQuantity){
                 prod=product;
                 highestQuantity=prod.getQuantity();
             }

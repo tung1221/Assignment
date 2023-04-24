@@ -16,7 +16,7 @@
         <!--begin of menu-->
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="home">Shoes</a>
+                <a class="navbar-brand" href="home">Phone Store</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -56,8 +56,8 @@
         </nav>
         <section class="jumbotron text-center">
             <div class="container">
-                <h1 class="jumbotron-heading">Siêu thị giày chất lượng cao</h1>
-                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm giày nhập từ Trung Quốc</p>
+                <h1 class="jumbotron-heading">Shop điện thoại chất lượng cao</h1>
+                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm  Trung Quốc</p>
             </div>
         </section>
         <!--end of menu-->
@@ -81,7 +81,7 @@
                         <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                         <ul class="list-group category_block">
                             <c:forEach items="${listCC}" var="o">
-                                <li class="list-group-item text-white"><a href="#">${o.cname}</a></li>
+                                <li class="list-group-item text-white"><a href="#">${o.cateName}</a></li>
                             </c:forEach>
 
                         </ul>
@@ -90,8 +90,8 @@
                         <div class="card-header bg-success text-white text-uppercase">Last product</div>
                         <div class="card-body">
                             <img class="img-fluid" src="${p.image}" />
-                            <h5 class="card-title">${p.name}</h5>
-                            <p class="card-text">${p.title}</p>
+                            <h5 class="card-title">${p.pname}</h5>
+                            <p class="card-text">${p.description}</p>
                             <p class="bloc_left_price">${p.price} $</p>
                         </div>
                     </div>
@@ -104,14 +104,14 @@
                                 <div class="card">
                                     <img class="card-img-top" src="${o.image}" alt="Card image cap">
                                     <div class="card-body">
-                                        <h4 class="card-title show_txt"><a href="#" title="View Product">${o.name}</a></h4>
-                                        <p class="card-text show_txt">${o.title}</p>
+                                        <h4 class="card-title show_txt"><a href="#" title="View Product">${o.pname}</a></h4>
+                                        <p class="card-text show_txt">${o.description}</p>
                                         <div class="row">
                                             <div class="col">
                                                 <p class="btn btn-danger btn-block">${o.price} $</p>
                                             </div>
                                             <div class="col">
-                                                <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>                                                                                               
                                             </div>
                                         </div>
                                     </div>
