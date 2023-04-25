@@ -29,7 +29,7 @@ public class checkout extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session =request.getSession();
-        session.removeAttribute("list");
+        session.removeAttribute("cart");
         response.sendRedirect("home");
     } 
 

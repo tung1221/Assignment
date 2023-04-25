@@ -59,7 +59,7 @@ public class addToCart extends HttpServlet {
              if(list.containsKey(prod)){
                  int quantity1= list.get(prod);
                  if(quantity1 > 1){
-                     list.put(prod, quantity1-1);
+                     list.put(prod, quantity1 - 1);
                  }else
                      list.remove(prod);
              }

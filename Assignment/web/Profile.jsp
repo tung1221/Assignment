@@ -72,29 +72,31 @@
                 <div class="modal-content">
                     <form action="editProduct" method="post">
                         <div class="modal-header">						
-                            <h4 class="modal-title">edit Product</h4>
+                            <h4 class="modal-title">edit Profile</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-                            <div class="form-group">
-                                <label>product id</label>
-                                <input name="id" type="text" class="form-control" value="${p.pid}" readonly>
-                            </div>
+                            
                             <div class="form-group">
                                 <label>Name</label>
-                                <input name="name" type="text" class="form-control" value="${p.pname}" required>
+                                <input name="name" type="text" class="form-control" value="${sessionScope.account.cname}" required>
                             </div>
                             <div class="form-group">
-                                <label>Quantity</label>
-                                <input name="quantity" type="number" class="form-control" value="${p.quantity}" required>
+                                <label>UserName</label>
+                                <input name="username" type="text" class="form-control" value="${p.quantity}" readonly>
                             </div>
                             <div class="form-group">
-                                <label>price</label>
-                                <input name="price" type="number" min="0" step="any" class="form-control" value="${p.price}" required>
+                                <label>password</label>
+                                <input name="password" type="text" class="form-control" value="${p.price}" required>
                             </div>
                             <div class="form-group">
-                                <label>Image</label>
-                                <input name="image" type="text" class="form-control" value="${p.image}" >
+                                <label>re-password</label>
+                                <input name="password" type="text" class="form-control" value="${p.price}" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="address"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="address" name="address" id="address" placeholder="address" required/>
                             </div>
                             <div class="form-group">
                                 <label>status</label>
@@ -107,14 +109,6 @@
                             <div class="form-group">
                                 <label>Description</label>
                                 <textarea name="description" class="form-control" >${p.description}</textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select name="category" class="form-select" aria-label="Default select example">
-                                    <c:forEach items="${listCate}" var="o">
-                                        <option value="${o.cateId}" ${o.cateId == p.cateID ? "selected" : ""}>${o.cateName}</option>
-                                    </c:forEach>
-                                </select>
                             </div>
 
                         </div>
