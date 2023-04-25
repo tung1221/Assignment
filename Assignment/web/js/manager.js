@@ -2,12 +2,14 @@ $(document).ready(function () {
     // Activate tooltip
     $('[data-toggle="tooltip"]').tooltip();
 
-    // Select/Deselect checkboxes
+     //Select/Deselect checkboxes
+    
     var checkbox = $('table tbody input[type="checkbox"]');
+    
     $("#selectAll").click(function () {
-        if (this.checked) {
+       if (this.checked) {
             checkbox.each(function () {
-                this.checked = true;
+               this.checked = true;
             });
         } else {
             checkbox.each(function () {
@@ -20,6 +22,10 @@ $(document).ready(function () {
             $("#selectAll").prop("checked", false);
         }
     });
+//    $('.table .delete').on('click', function() {
+//            var id=$(this).parent().find('#id').val();
+//            $('#deleteEmployeeModal #id').val(id);
+//    } );
 });
 
 

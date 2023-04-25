@@ -12,7 +12,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Product Manager</title>
+        <title>Bootstrap CRUD Data Table for Database with Modal Form</title>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -27,21 +27,39 @@
             }
         </style>
         <script type="text/javascript">
-$(document).ready(function(){
-        // Activate tooltip
-        $('[data-toggle="tooltip"]').tooltip();
-	
-        $('.table .delete').on('click', function() {
+            $(document).ready(function () {
+    // Activate tooltip
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Select/Deselect checkboxes
+    
+//    var checkbox = $('table tbody input[type="checkbox"]');
+//    $("#selectAll").click(function () {
+//    $("#selectAll").click(function () {
+//    $("#selectAll").click(function () {
+//        if (this.checked) {
+//            checkbox.each(function () {
+//                this.checked = true;
+//            });
+//        } else {
+//            checkbox.each(function () {
+//                this.checked = false;
+//            });
+//        }
+//    });
+//    checkbox.click(function () {
+//        if (!this.checked) {
+//            $("#selectAll").prop("checked", false);
+//        }
+//    });
+    $('.table .delete').on('click', function() {
             var id=$(this).parent().find('#id').val();
             $('#deleteEmployeeModal #id').val(id);
-        } );
-        
-        
+    } );
 });
         </script>
-    </head>    
-    <body>
         
+    <body>
         <div class="container">
             <div class="table-wrapper">
                 <div class="table-title">
@@ -50,12 +68,8 @@ $(document).ready(function(){
                             <h2>Manage <b>Product</b></h2>
                         </div>
                         <div class="col-sm-6">
-                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>                            
-                            <form action="lists" method="post">
-                                <input type="hidden" name="go" value="listall">
-                                <input type="text"name="search">
-                                <input class="btn-primary" type="submit" value="search">
-                            </form> 
+                            <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
+                            						
                         </div>
                     </div>
                 </div>
@@ -109,13 +123,25 @@ $(document).ready(function(){
                             </tr>
                         </c:forEach>
                     </tbody>
+                    </tbody>
                 </table>
-                
+                <div class="clearfix">
+                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                    <ul class="pagination">
+                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                    </ul>
+                </div>
             </div>
-            <a href="#"><button type="button" class="btn btn-primary">Back to home</button>
-
+            <a href="home"><button type="button" class="btn btn-primary">Back to home</button></a>
+                
         </div>
-        <!-- add Modal HTML -->
+        <!-- Edit Modal HTML -->
         <div id="addEmployeeModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -175,31 +201,28 @@ $(document).ready(function(){
                 </div>
             </div>
         </div>
-        
-        <!-- delete Modal HTML -->
-    <div id="deleteEmployeeModal" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
+        <div id="deleteEmployeeModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
                     <form method="post" action="deleteProduct">
-				<div class="modal-header">						
-					<h4 class="modal-title">Delete Product</h4>
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-				</div>
-				<div class="modal-body">					
-					<p>Are you sure you want to delete these Records?</p>
-					<p class="text-warning"><small>This action cannot be undone.</small></p>
-				</div>
-				<div class="modal-footer">
-					<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-					<input type="submit" class="btn btn-danger" value="Delete">
-                                        <input type="hidden" name="id" id="id">
-				</div>
-			</form>
-		</div>
-	</div>
-</div>    
-         
-        
+                        <div class="modal-header">						
+                            <h4 class="modal-title">Delete Product</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">					
+                            <p>Are you sure you want to delete these Records?</p>
+                            <p class="text-warning"><small>This action cannot be undone.</small></p>
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                            <input type="submit" class="btn btn-danger" value="Delete">
+                            <input type="hidden" name="id" id="id">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>    
+                
         
     
 </body>

@@ -24,7 +24,7 @@
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Manager Account</a>
+                            <a class="nav-link" href="lists">Manager Product</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Hello Alias</a>
@@ -37,7 +37,7 @@
                         </li>
                     </ul>
 
-                    <form action="search" method="post" class="form-inline my-2 my-lg-0">
+                    <form action="home" method="post" class="form-inline my-2 my-lg-0">
                         <div class="input-group input-group-sm">
                             <input name="txt" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
                             <div class="input-group-append">
@@ -46,7 +46,7 @@
                                 </button>
                             </div>
                         </div>
-                        <a class="btn btn-success btn-sm ml-3" href="show">
+                        <a class="btn btn-success btn-sm ml-3" href="#">
                             <i class="fa fa-shopping-cart"></i> Cart
                             <span class="badge badge-light">3</span>
                         </a>
@@ -66,7 +66,7 @@
                 <div class="col">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="Home.jsp">Home</a></li>
+                            <li class="breadcrumb-item"><a href="home">Home</a></li>
                             <li class="breadcrumb-item"><a href="#">Category</a></li>
                             <li class="breadcrumb-item active" aria-current="#">Sub-category</li>
                         </ol>
@@ -81,13 +81,13 @@
                         <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                         <ul class="list-group category_block">
                             <c:forEach items="${listCC}" var="o">
-                                <li class="list-group-item text-white"><a href="#">${o.cateName}</a></li>
+                                <li class="list-group-item text-white"><a href="home?cateid=${o.cateId}">${o.cateName}</a></li>
                             </c:forEach>
 
                         </ul>
                     </div>
                     <div class="card bg-light mb-3">
-                        <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                        <div class="card-header bg-success text-white text-uppercase">best seller</div>
                         <div class="card-body">
                             <img class="img-fluid" src="${p.image}" />
                             <h5 class="card-title">${p.pname}</h5>
@@ -111,7 +111,12 @@
                                                 <p class="btn btn-danger btn-block">${o.price} $</p>
                                             </div>
                                             <div class="col">
-                                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>                                                                                               
+                                                <c:if test="${o.quantity > 0}">
+                                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                                </c:if>
+                                                <c:if test="${o.quantity == 0}">
+                                                    <p>sold out</p>
+                                                </c:if>                                                                                                   
                                             </div>
                                         </div>
                                     </div>

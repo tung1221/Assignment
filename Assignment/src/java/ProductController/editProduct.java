@@ -80,7 +80,20 @@ public class editProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String id=request.getParameter("id").trim();
+        String name=request.getParameter("name").trim();
+        int quantity=Integer.parseInt(request.getParameter("quantity").trim());
+        Double price=Double.parseDouble(request.getParameter("price").trim());
+        String image=request.getParameter("image").trim();
+        String description= request.getParameter("description").trim();
+        int status=Integer.parseInt(request.getParameter("status").trim());
+        int cateId=Integer.parseInt(request.getParameter("category").trim());
+        
+        ProductDAO prodDao = new ProductDAO();
+        Product prod = new Product(id, name, quantity, price, image, description, status, cateId);
+        prodDao.updateProduct(prod);
+        response.sendRedirect("lists");
     }
 
     /** 

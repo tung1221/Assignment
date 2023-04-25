@@ -39,10 +39,11 @@ public class listProduct extends HttpServlet {
         if (request.getParameter("search")!=null) {
             
             sql = "select p.pid,p.pname,p.quantity,p.price,p.image,p.description,p.status,\n"
-                + "p.cateId,c.cateName\n"
-                + "from Product p join Category c\n"
-                + "on p.cateId=c.cateId where p.pid like %"+search +"% or p.pname like %"+search +"% or p.price like %"+search +"% or p.price like"+search+"% or p.description like"+search+"%";
-        }else
+                    + "p.cateId,c.cateName\n"
+                    + "from Product p join Category c\n"
+                    + "on p.cateId=c.cateId \n"
+                    + "where p.pid like '%"+search+"%' or p.pname like '%"+search+"%' or p.quantity like '%"+search+"%' or p.price like '%"+search+"%' or p.description like '%"+search+"%' or c.cateName like '%"+search+"%'";
+        } else
             sql ="select p.pid,p.pname,p.quantity,p.price,p.image,p.description,p.status,\n"
                 + "p.cateId,c.cateName\n"
                 + "from Product p join Category c\n"

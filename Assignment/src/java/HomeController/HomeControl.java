@@ -32,9 +32,21 @@ public class HomeControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String cateid=request.getParameter("cateid");
+        String search=request.getParameter("txt");
+        String sql;
+        if( cateid != null && search==null){
+            sql = "select * from Product where cateId ="+cateid;
+        }else if (cateid != null && search!=null ) {
+             sql = "select * from Product where cateId ="+cateid+"and pid like '%"+search+"%' or pname like '%"+search+"%' or quantity like '%"+search+"%' or price like '%"+search+"%' or description like '%"+search+"%'";
+        }else if(cateid ==null&& search!=null){
+            sql="select * from Product where  pid like '%"+search+"%' or pname like '%"+search+"%' or quantity like '%"+search+"%' or price like '%"+search+"%' or description like '%"+search+"%'";
+        }
+        else{
+            sql="select * from Product";
+        }
         ProductDAO prodDao = new ProductDAO();
-        Vector<Product> listP =prodDao.getAllProduct1("select * from Product");
+        Vector<Product> listP =prodDao.getAllProduct1(sql);
         Product prod=prodDao.getBestSeller();
         CategoryDAO cateDao= new CategoryDAO();
         Vector<Category> listCC =cateDao.getAllCategory("select * from Category");
