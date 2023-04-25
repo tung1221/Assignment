@@ -160,7 +160,7 @@ public class ProductDAO extends DBConnect{
         Product prod=vec.elementAt(0);
         int highestQuantity=prod.getQuantity();
         for (Product product : vec) {
-            if(product.getQuantity() >= highestQuantity){
+            if(product.getQuantity() <= highestQuantity){
                 prod=product;
                 highestQuantity=prod.getQuantity();
             }

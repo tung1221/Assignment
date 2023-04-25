@@ -20,6 +20,34 @@
         <servlet-name>editProduct</servlet-name>
         <servlet-class>ProductController.editProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addToCart</servlet-name>
+        <servlet-class>cartController.addToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CartDetail</servlet-name>
+        <servlet-class>cartController.CartDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>HomeController.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>HomeController.Logout</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailControl</servlet-name>
+        <servlet-class>HomeController.DetailControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registerControl</servlet-name>
+        <servlet-class>HomeController.registerControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>checkout</servlet-name>
+        <servlet-class>cartController.checkout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listProduct</servlet-name>
         <url-pattern>/lists</url-pattern>
@@ -39,6 +67,34 @@
     <servlet-mapping>
         <servlet-name>editProduct</servlet-name>
         <url-pattern>/editProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addToCart</servlet-name>
+        <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CartDetail</servlet-name>
+        <url-pattern>/CartDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailControl</servlet-name>
+        <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerControl</servlet-name>
+        <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>checkout</servlet-name>
+        <url-pattern>/checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

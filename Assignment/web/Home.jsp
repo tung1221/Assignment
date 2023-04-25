@@ -23,18 +23,27 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
+                        <c:if test="${sessionScope.account.isAdmin eq 1}">
+                            <li class="nav-item">
                             <a class="nav-link" href="lists">Manager Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hello Alias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.account ne null}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Hello ${sessionScope.account.cname}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                            </li>
+                        </c:if>
+                        
+                            <c:if test="${sessionScope.account == null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.jsp">Login</a>
+                                </li>
+                            </c:if>
+                        
                     </ul>
 
                     <form action="home" method="post" class="form-inline my-2 my-lg-0">
@@ -46,9 +55,16 @@
                                 </button>
                             </div>
                         </div>
-                        <a class="btn btn-success btn-sm ml-3" href="#">
+                        <a class="btn btn-success btn-sm ml-3" href="CartDetail">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
+                            <span class="badge badge-light">
+                                <c:if test="${sessionScope.cart == null || session.cart.isEmpty()}">
+                                    0
+                                </c:if>
+                                <c:if test="${sessionScope.cart != null}">
+                                    ${sessionScope.cart.size()}
+                                </c:if>  
+                            </span>
                         </a>
                     </form>
                 </div>
@@ -104,7 +120,7 @@
                                 <div class="card">
                                     <img class="card-img-top" src="${o.image}" alt="Card image cap">
                                     <div class="card-body">
-                                        <h4 class="card-title show_txt"><a href="#" title="View Product">${o.pname}</a></h4>
+                                        <h4 class="card-title show_txt"><a href="detail?pid=${o.pid}" title="View Product">${o.pname}</a></h4>
                                         <p class="card-text show_txt">${o.description}</p>
                                         <div class="row">
                                             <div class="col">
@@ -112,7 +128,7 @@
                                             </div>
                                             <div class="col">
                                                 <c:if test="${o.quantity > 0}">
-                                                    <a href="#" class="btn btn-success btn-block">Add to cart</a>
+                                                    <a href="addToCart?pid=${o.pid}" class="btn btn-success btn-block">Add to cart</a>
                                                 </c:if>
                                                 <c:if test="${o.quantity == 0}">
                                                     <p>sold out</p>

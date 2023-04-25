@@ -50,25 +50,86 @@
         </style>
     </head>
     <body>
-        <jsp:include page="Menu.jsp"></jsp:include>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="home">Phone Store</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
+                    <ul class="navbar-nav m-auto">
+                        <c:if test="${sessionScope.account.isAdmin eq 1}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="lists">Manager Product</a>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.account ne null}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Hello ${sessionScope.account.cname}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                            </li>
+                        </c:if>
+                        
+                            <c:if test="${sessionScope.account == null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.jsp">Login</a>
+                                </li>
+                            </c:if>
+                        
+                    </ul>
+
+                    <form action="home" method="post" class="form-inline my-2 my-lg-0">
+                        <div class="input-group input-group-sm">
+                            <input name="txt" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-secondary btn-number">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <a class="btn btn-success btn-sm ml-3" href="CartDetail">
+                            <i class="fa fa-shopping-cart"></i> Cart
+                            <span class="badge badge-light">
+                                <c:if test="${sessionScope.cart == null || session.cart.isEmpty()}">
+                                    0
+                                </c:if>
+                                <c:if test="${sessionScope.cart != null}">
+                                    ${sessionScope.cart.size()}
+                                </c:if>  
+                            </span>
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <section class="jumbotron text-center">
+            <div class="container">
+                <h1 class="jumbotron-heading">Shop điện thoại chất lượng cao</h1>
+                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm  Trung Quốc</p>
+            </div>
+        </section>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-3">
                         <div class="card bg-light mb-3">
                             <div class="card-header bg-primary text-white text-uppercase"><i class="fa fa-list"></i> Categories</div>
                             <ul class="list-group category_block">
-                            <c:forEach items="${ALLCate}" var="o">
-                                <li class="list-group-item text-white"><a href="#">${o.name}</a></li>
+                            <c:forEach items="${listCC}" var="o">
+                                <li class="list-group-item text-white"><a href="home?cateid=${o.cateId}">${o.cateName}</a></li>
                             </c:forEach>
                         </ul>
                     </div>
                     <div class="card bg-light mb-3">
-                        <div class="card-header bg-success text-white text-uppercase">Last product</div>
+                        <div class="card-header bg-success text-white text-uppercase">Best Seller</div>
                         <div class="card-body">
-                            <img class="img-fluid" src="${last.image}" />
-                            <h5 class="card-title">${last.name}</h5>
-                            <p class="card-text">${last.description}</p>
-                            <p class="bloc_left_price">${last.price} $</p>
+                            <img class="img-fluid" src="${best.image}" />
+                            <h5 class="card-title">${best.pname}</h5>
+                            <p class="card-text">${best.description}</p>
+                            <p class="bloc_left_price">${best.description} $</p>
                         </div>
                     </div>
                 </div>
@@ -91,7 +152,7 @@
                                 </aside>
                                 <aside class="col-sm-7">
                                     <article class="card-body p-5">
-                                        <h3 class="title mb-3">${p.name}</h3>
+                                        <h3 class="title mb-3">${p.pname}</h3>
 
                                         <p class="price-detail-wrap"> 
                                             <span class="price h3 text-warning"> 
@@ -133,8 +194,14 @@
                                             
                                         </div> <!-- row.// -->
                                         <hr>
-                                        <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
+                                        <c:if test="${p.quantity == 0}">
+                                            <p>Sold out</p>
+                                        </c:if>
+                                        <c:if test="${p.quantity > 0}">
+                                            <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
                                         <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+                                        </c:if>    
+                                        
                                     </article> <!-- card-body.// -->
                                 </aside> <!-- col.// -->
                             </div> <!-- row.// -->

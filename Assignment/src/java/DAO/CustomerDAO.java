@@ -23,28 +23,30 @@ public class CustomerDAO extends DBConnect{
         CustomerDAO dao = new CustomerDAO();
 //        Customer cus=dao.getCustomer("sa", "123456");
 //        System.out.println(cus);
-       int n=dao.addCustomer(new Customer("c09", "Manh", "huongcon01", "123456", "Haiphog", "094392", 1) );
+       int n=dao.addCustomer(new Customer("c09", "Manh", "huongcon01", "123456", "Haiphog", "094392", 1,0) );
        if(n>0) System.out.println("add!");
     }
     
     public int addCustomer(Customer customer){
         int n=0;
-        String sql = "INSERT INTO [dbo].[Customer]\n" +
-"           ([cid]\n" +
-"           ,[cname]\n" +
-"           ,[username]\n" +
-"           ,[password]\n" +
-"           ,[address]\n" +
-"           ,[phone]\n" +
-"           ,[status])\n" +
-"     VALUES\n" +
-"           (?\n" +
-"           ,?\n" +
-"           ,?\n" +
-"           ,?\n" +
-"           ,?\n" +
-"           ,?\n" +
-"           ,?)";
+        String sql = "INSERT INTO [dbo].[Customer]\n"
+                + "           ([cid]\n"
+                + "           ,[cname]\n"
+                + "           ,[username]\n"
+                + "           ,[password]\n"
+                + "           ,[address]\n"
+                + "           ,[phone]\n"
+                + "           ,[status]\n"
+                + "           ,[isAdmin])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
 
@@ -55,6 +57,7 @@ public class CustomerDAO extends DBConnect{
             pre.setString(5, customer.getAddress());
             pre.setString(6, customer.getPhone());
             pre.setInt(7, customer.getStatus());
+            pre.setInt(8, 0);
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +73,8 @@ public class CustomerDAO extends DBConnect{
         String address = rs.getString("address");
         String phone = rs.getString("phone");
         int status = rs.getInt("status");
-        return new Customer(cid, name, username, password, address, phone, status);
+        int isAdmin=rs.getInt("isAdmin");
+        return new Customer(cid, name, username, password, address, phone, status,isAdmin);
     }
     
     public Vector<Customer> getAllCustomer(String sql){
@@ -96,6 +100,7 @@ public class CustomerDAO extends DBConnect{
                 "      ,[address] = ?\n" +
                 "      ,[status] = ?\n" +
                 "      ,[phone] = ?\n" +
+                "      ,[isAdmin] = ?\n" +
                 " WHERE [cid] = ?";
         try {
             PreparedStatement pre = conn.prepareStatement(sql);
@@ -105,7 +110,8 @@ public class CustomerDAO extends DBConnect{
             pre.setString(4, customer.getAddress());
             pre.setInt(5, customer.getStatus());
             pre.setString(6, customer.getPhone());
-            pre.setString(7, customer.getCid());
+            pre.setInt(7, customer.getIsAdmin());
+            pre.setString(8, customer.getCid());
             n = pre.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -117,7 +123,7 @@ public class CustomerDAO extends DBConnect{
         Vector<Customer> vec = getAllCustomer("select * from Customer");
         int n=vec.size()+1;
         String cid="c"+Integer.toString(n);
-        Customer cus= new Customer(cid, name, user, pass, address, phone, 1);
+        Customer cus= new Customer(cid, name, user, pass, address, phone, 1,0);
         n=addCustomer(cus);
    
     }
@@ -129,7 +135,7 @@ public class CustomerDAO extends DBConnect{
         ps.setString(2, pass);
         ResultSet rs=ps.executeQuery();
         while(rs.next()){
-            return new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getInt(7));
+            return new Customer(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getString(6),rs.getInt(7),rs.getInt(8));
         }
         return null;
     }

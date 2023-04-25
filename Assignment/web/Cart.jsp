@@ -10,13 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!------ Include the above in your HEAD tag ---------->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://getbootstrap.com/docs/5.2/assets/css/docs.css"
+      rel="stylesheet"
+    />
+    <title></title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
         <link href="css/cartStyle.css" rel="stylesheet" type="text/css"/>
     </head>
 
@@ -44,180 +47,125 @@
                         </li>
                     </ul>
 
-                    <form action="home" method="post" class="form-inline my-2 my-lg-0">
-                        <div class="input-group input-group-sm">
-                            <input name="txt" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-secondary btn-number">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </div>
-                        </div>
+                    
                         <a class="btn btn-success btn-sm ml-3" href="#">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
+                            <span class="badge badge-light">
+                                <c:if test="${sessionScope.cart == null || session.cart.isEmpty()}">
+                                    0
+                                </c:if>
+                                <c:if test="${sessionScope.cart != null}">
+                                    ${sessionScope.cart.size()}
+                                </c:if>
+                            </span>
                         </a>
-                    </form>
+                    
                 </div>
             </div>
         </nav>
-        <section class="jumbotron text-center">
-            <div class="container">
-                <h1 class="jumbotron-heading">Shop điện thoại chất lượng cao</h1>
-                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm  Trung Quốc</p>
-            </div>
-        </section>
-        <section class="h-100 h-custom" style="background-color: #eee;">
-            <div class="container h-100 py-5">
+        
+        <section class="h-100 h-custom" style="background-color: #d2c9ff;">
+            <div class="container py-5 h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
-                    <div class="col">
-                        <div class="card shopping-cart" style="border-radius: 15px;">
-                            <div class="card-body text-black">
-
-                                <div class="row">
-                                    <div class="col-lg-6 px-5 py-4">
-
-                                        <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Your products</h3>
-
-                                        <div class="d-flex align-items-center mb-5">
-                                            <div class="flex-shrink-0">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/13.webp"
-                                                     class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
+                    <div class="col-12">
+                        <div class="card card-registration card-registration-2" style="border-radius: 15px;">
+                            <div class="card-body p-0">
+                                <div class="row g-0">
+                                    <div class="col-lg-8">
+                                        <div class="p-5">
+                                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                                <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
+                                                <h6 class="mb-0 text-muted">${sessionScope.cart.size()} items</h6>
                                             </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
-                                                <h5 class="text-primary">Samsung Galaxy M11 64GB</h5>
-                                                <h6 style="color: #9e9e9e;">Color: white</h6>
-                                                <div class="d-flex align-items-center">
-                                                    <p class="fw-bold mb-0 me-5 pe-3">799$</p>
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                                class="minus"></button>
-                                                        <input class="quantity fw-bold text-black" min="0" name="quantity" value="1"
-                                                               type="number">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                                class="plus"></button>
+                                            <hr class="my-4">
+                                            <c:forEach items="${sessionScope.cart}" var="i">
+                                                <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                                    <div class="col-md-2 col-lg-2 col-xl-2">
+                                                        <img
+                                                            src="${i.key.image}"
+                                                            class="img-fluid rounded-3">
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-xl-3">
+                                                        
+                                                        <h6 class="text-black mb-0">${i.key.pname}</h6>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                                        <button class="btn btn-block px-2 "
+                                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+                                                            <i class="fas fa-minus"><a href="addToCart?pid=${i.key.pid}&mode=decrease">-</a></i>
+                                                        </button>
+
+                                                        <input id="form1" min="0" max="10" value="${i.value}" type="number"
+                                                               class="form-control form-control-sm"/>
+
+                                                        <button class="btn btn-block px-2">
+                                                            <i class="fas fa-plus"><a href="addToCart?pid=${i.key.pid}&mode=increase">+</a></i>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                                        <h6 class="mb-0">${i.value * i.key.price}</h6>
+                                                    </div>
+                                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
+                                                        <a href="addToCart?pid=${i.key.pid}&mode=remove" class="text-muted"><i class="fas fa-times"></i>x</a>
                                                     </div>
                                                 </div>
+
+                                                <hr class="my-4">
+                                                    
+                                            </c:forEach>        
+                                            
+
+                                            <div class="pt-5">
+                                                <h6 class="mb-0"><a href="home" class="text-body"><i
+                                                            class="fas fa-long-arrow-alt-left me-2"></i>Back to shop</a></h6>
                                             </div>
                                         </div>
-
-                                        <div class="d-flex align-items-center mb-5">
-                                            <div class="flex-shrink-0">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/6.webp"
-                                                     class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
-                                                <h5 class="text-primary">Headphones Bose 35 II</h5>
-                                                <h6 style="color: #9e9e9e;">Color: Red</h6>
-                                                <div class="d-flex align-items-center">
-                                                    <p class="fw-bold mb-0 me-5 pe-3">239$</p>
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                                class="minus"></button>
-                                                        <input class="quantity fw-bold text-black" min="0" name="quantity" value="1"
-                                                               type="number">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                                class="plus"></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="d-flex align-items-center mb-5">
-                                            <div class="flex-shrink-0">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/E-commerce/Products/1.webp"
-                                                     class="img-fluid" style="width: 150px;" alt="Generic placeholder image">
-                                            </div>
-                                            <div class="flex-grow-1 ms-3">
-                                                <a href="#!" class="float-end text-black"><i class="fas fa-times"></i></a>
-                                                <h5 class="text-primary">iPad 9.7 6-gen WiFi 32GB</h5>
-                                                <h6 style="color: #9e9e9e;">Color: rose pink</h6>
-                                                <div class="d-flex align-items-center">
-                                                    <p class="fw-bold mb-0 me-5 pe-3">659$</p>
-                                                    <div class="def-number-input number-input safari_only">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                                                                class="minus"></button>
-                                                        <input class="quantity fw-bold text-black" min="0" name="quantity" value="2"
-                                                               type="number">
-                                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
-                                                                class="plus"></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <hr class="mb-4" style="height: 2px; background-color: #1266f1; opacity: 1;">
-
-                                        <div class="d-flex justify-content-between px-x">
-                                            <p class="fw-bold">Discount:</p>
-                                            <p class="fw-bold">95$</p>
-                                        </div>
-                                        <div class="d-flex justify-content-between p-2 mb-2" style="background-color: #e1f5fe;">
-                                            <h5 class="fw-bold mb-0">Total:</h5>
-                                            <h5 class="fw-bold mb-0">2261$</h5>
-                                        </div>
-
                                     </div>
-                                    <div class="col-lg-6 px-5 py-4">
+                                    <div class="col-lg-4 bg-grey">
+                                        <div class="p-5">
+                                            <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                                            <hr class="my-4">
 
-                                        <h3 class="mb-5 pt-2 text-center fw-bold text-uppercase">Payment</h3>
-
-                                        <form class="mb-5">
-
-                                            <div class="form-outline mb-5">
-                                                <input type="text" id="typeText" class="form-control form-control-lg" siez="17"
-                                                       value="1234 5678 9012 3457" minlength="19" maxlength="19" />
-                                                <label class="form-label" for="typeText">Card Number</label>
+                                            <div class="d-flex justify-content-between mb-4">
+                                                <h5 class="text-uppercase">items ${sessionScope.cart.size()}</h5>
+                                                <h5>${requestScope.total}</h5>
                                             </div>
 
-                                            <div class="form-outline mb-5">
-                                                <input type="text" id="typeName" class="form-control form-control-lg" siez="17"
-                                                       value="John Smith" />
-                                                <label class="form-label" for="typeName">Name on card</label>
+                                            <h5 class="text-uppercase mb-3">Shipping</h5>
+
+                                            <div class="mb-4 pb-2">
+                                                <select class="select">
+                                                    <option value="1">Standard-Delivery- €5.00</option>
+                                                    <option value="2">free ship</option>
+                                                    
+                                                </select>
                                             </div>
 
-                                            <div class="row">
-                                                <div class="col-md-6 mb-5">
-                                                    <div class="form-outline">
-                                                        <input type="text" id="typeExp" class="form-control form-control-lg" value="01/22"
-                                                               size="7" id="exp" minlength="7" maxlength="7" />
-                                                        <label class="form-label" for="typeExp">Expiration</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 mb-5">
-                                                    <div class="form-outline">
-                                                        <input type="password" id="typeText" class="form-control form-control-lg"
-                                                               value="&#9679;&#9679;&#9679;" size="1" minlength="3" maxlength="3" />
-                                                        <label class="form-label" for="typeText">Cvv</label>
-                                                    </div>
-                                                </div>
+                                            <hr class="my-4">
+
+                                            <div class="d-flex justify-content-between mb-5">
+                                                <h5 class="text-uppercase">Total price</h5>
+                                                <h5>${requestScope.total} $</h5>
                                             </div>
-
-                                            <p class="mb-5">Lorem ipsum dolor sit amet consectetur, adipisicing elit <a
-                                                    href="#!">obcaecati sapiente</a>.</p>
-
-                                            <button type="button" class="btn btn-primary btn-block btn-lg">Buy now</button>
-
-                                            <h5 class="fw-bold mb-5" style="position: absolute; bottom: 0;">
-                                                <a href="#!"><i class="fas fa-angle-left me-2"></i>Back to shopping</a>
-                                            </h5>
-
-                                        </form>
-
+                                                <c:if test="${sessionScope.account == null}" >   
+                                            <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                    data-mdb-ripple-color="blue"><a href="SignUp.jsp">Register</a></button>
+                                                </c:if>
+                                                 <c:if test="${sessionScope.account != null}" >   
+                                                <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                        data-mdb-ripple-color="blue"><a href="checkout">Checkout</a></button>
+                                                </c:if>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        </section>    
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
     </body>
 
 </html>

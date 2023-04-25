@@ -8,8 +8,9 @@ public class Customer {
     private String address;
     private String phone;
     private int status;
+    private int isAdmin;
 
-    public Customer(String cid, String cname, String username, String password, String address, String phone, int status) {
+    public Customer(String cid, String cname, String username, String password, String address, String phone, int status,int isAdmin) {
         this.cid = cid;
         this.cname = cname;
         this.username = username;
@@ -17,6 +18,7 @@ public class Customer {
         this.address = address;
         this.phone = phone;
         this.status = status;
+        this.isAdmin=isAdmin;
     }
 
     
@@ -77,6 +79,16 @@ public class Customer {
     public void setStatus(int status) {
         this.status = status;
     }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(int isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+    
+    
 
     @Override
     public String toString() {
