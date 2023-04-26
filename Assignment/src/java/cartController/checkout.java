@@ -5,12 +5,16 @@
 
 package cartController;
 
+import DAO.ProductDAO;
+import Entity.Product;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -29,6 +33,18 @@ public class checkout extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session =request.getSession();
+        HashMap<Product,Integer> list =(HashMap<Product,Integer>) session.getAttribute("cart");
+        if(list!=null && list.isEmpty()!= false){
+            for (Map.Entry<Product, Integer> entry : list.entrySet()) {
+                Product p = entry.getKey();
+                int n =entry.getValue();
+                ProductDAO dao = new ProductDAO();
+                int quantity=p.getQuantity() - n;
+                p.setQuantity(quantity);
+                dao.updateProduct(p);
+            }
+        }
+        
         session.removeAttribute("cart");
         response.sendRedirect("home");
     } 

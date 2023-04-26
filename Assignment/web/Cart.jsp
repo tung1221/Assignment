@@ -148,11 +148,11 @@
                                                 <h5>${requestScope.total} $</h5>
                                             </div>
                                                 <c:if test="${sessionScope.account == null}" >   
-                                            <button type="button" class="btn btn-dark btn-block btn-lg"
+                                            <button type="button" class="btn btn-blue btn-block btn-lg"
                                                     data-mdb-ripple-color="blue"><a href="SignUp.jsp">Register</a></button>
                                                 </c:if>
                                                  <c:if test="${sessionScope.account != null}" >   
-                                                <button type="button" class="btn btn-dark btn-block btn-lg"
+                                                <button type="button" class="btn btn-blue btn-block btn-lg"
                                                         data-mdb-ripple-color="blue"><a href="checkout">Checkout</a></button>
                                                 </c:if>
                                         </div>
