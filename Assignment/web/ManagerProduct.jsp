@@ -65,11 +65,17 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-6">
-                            <h2>Manage <b>Product</b></h2>
+                            <h2>Manage <b>Product</b>
+                                
+                            </h2>
+                            
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-6"> 
                             <a href="#addEmployeeModal"  class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>Add New Product</span></a>
-                            						
+                            <form action="lists" method="post">
+                                    <input name="search" type="text"  placeholder="Search...">
+                                    
+                            </form>						
                         </div>
                     </div>
                 </div>

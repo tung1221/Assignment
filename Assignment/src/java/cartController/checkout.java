@@ -34,16 +34,15 @@ public class checkout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session =request.getSession();
         HashMap<Product,Integer> list =(HashMap<Product,Integer>) session.getAttribute("cart");
-        if(list!=null && list.isEmpty()!= false){
-            for (Map.Entry<Product, Integer> entry : list.entrySet()) {
-                Product p = entry.getKey();
-                int n =entry.getValue();
+        
+            for (Product i : list.keySet()) {
                 ProductDAO dao = new ProductDAO();
-                int quantity=p.getQuantity() - n;
-                p.setQuantity(quantity);
-                dao.updateProduct(p);
+                int quantity=i.getQuantity()- list.get(i);
+                i.setQuantity(quantity);
+                dao.updateProduct(i);
             }
-        }
+
+        
         
         session.removeAttribute("cart");
         response.sendRedirect("home");
