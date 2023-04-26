@@ -109,7 +109,7 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Shop điện thoại chất lượng cao</h1>
-                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm  Trung Quốc</p>
+                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp </p>
             </div>
         </section>
             <div class="container">
@@ -143,10 +143,10 @@
                                             <div> <a href="#"><img src="${p.image}"></a></div>
                                         </div> <!-- slider-product.// -->
                                         <div class="img-small-wrap">
-                                            <div class="item-gallery"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCepDDx2BVt6xaS4HE-_i43nybyVabVS6B3d8M33F9BF_YY_jC1xaIZsNuR_o&usqp=CAc"> </div>
-                                            <div class="item-gallery"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCepDDx2BVt6xaS4HE-_i43nybyVabVS6B3d8M33F9BF_YY_jC1xaIZsNuR_o&usqp=CAc"> </div>
-                                            <div class="item-gallery"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCepDDx2BVt6xaS4HE-_i43nybyVabVS6B3d8M33F9BF_YY_jC1xaIZsNuR_o&usqp=CAc"> </div>
-                                            <div class="item-gallery"> <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCepDDx2BVt6xaS4HE-_i43nybyVabVS6B3d8M33F9BF_YY_jC1xaIZsNuR_o&usqp=CAc"> </div>
+                                            <div class="item-gallery"> <img src="${p.image}"> </div>
+                                            <div class="item-gallery"> <img src="${p.image}"> </div>
+                                            <div class="item-gallery"> <img src="${p.image}"> </div>
+                                            <div class="item-gallery"> <img src="${p.image}"> </div>
                                         </div> <!-- slider-nav.// -->
                                     </article> <!-- gallery-wrap .end// -->
                                 </aside>
@@ -178,15 +178,16 @@
                                         </dl>   item-property-hor .// -->
 
                                         <hr>
+                                        <form action="addToCart" method="post">
                                         <div class="row">
                                             <div class="col-sm-5">
                                                 <dl class="param param-inline">
                                                     <dt>Quantity: </dt>
                                                     <dd>
-                                                        <select class="form-control form-control-sm" style="width:70px;">
-                                                            <option> 1 </option>
-                                                            <option> 2 </option>
-                                                            <option> 3 </option>
+                                                        <select name="quantity" class="form-control form-control-sm" style="width:70px;">
+                                                            <option value="1"> 1 </option>
+                                                            <option value="2"> 2 </option>
+                                                            <option value="3"> 3 </option>
                                                         </select>
                                                     </dd>
                                                 </dl>  <!-- item-property .// -->
@@ -198,10 +199,10 @@
                                             <p>Sold out</p>
                                         </c:if>
                                         <c:if test="${p.quantity > 0}">
-                                            <a href="#" class="btn btn-lg btn-primary text-uppercase"> Buy now </a>
-                                        <a href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-shopping-cart"></i> Add to cart </a>
+                                            
+                                            <input type="submit" class="btn btn-lg btn-outline-primary text-uppercase" value="addtoCart"> <i class="fas fa-shopping-cart"></i>
                                         </c:if>    
-                                        
+                                        </form>
                                     </article> <!-- card-body.// -->
                                 </aside> <!-- col.// -->
                             </div> <!-- row.// -->

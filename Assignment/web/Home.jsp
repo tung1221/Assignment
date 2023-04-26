@@ -73,7 +73,7 @@
         <section class="jumbotron text-center">
             <div class="container">
                 <h1 class="jumbotron-heading">Shop điện thoại chất lượng cao</h1>
-                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp các sản phầm  Trung Quốc</p>
+                <p class="lead text-muted mb-0">Uy tín tạo nên thương hiệu với hơn 10 năm cung cấp </p>
             </div>
         </section>
         <!--end of menu-->
