@@ -99,8 +99,8 @@
                             </div>
                             
                             <div class="form-group">
-                                <label >address</label>
-                                <input type="text" name="address" class="form-control" value="${c.address}" placeholder="${c.address}" required/>
+                                <label>Address</label>
+                                <input name="address" type="text" class="form-control" value="${c.getAddress()}" required>                                
                             </div>
                             <div class="form-group">
                                 <label>Phone</label>

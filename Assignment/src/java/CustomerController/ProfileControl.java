@@ -7,12 +7,14 @@ package CustomerController;
 
 import DAO.CustomerDAO;
 import Entity.Customer;
+import com.oracle.wls.shaded.org.apache.bcel.generic.AALOAD;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -81,7 +83,20 @@ public class ProfileControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        String id= request.getParameter("id");
+        String name=request.getParameter("name");
+        String user=request.getParameter("username");
+        String pass=request.getParameter("password");
+        String address=request.getParameter("address");
+        String phone=request.getParameter("phone");
+        HttpSession session =request.getSession();
+        Customer account=(Customer)session.getAttribute("account");
+        Customer cus= new Customer(id, name, user, pass, address, phone, account.getStatus(), account.getIsAdmin());
+        CustomerDAO dao = new CustomerDAO();
+        dao.updateCustomer(cus);
+        session.removeAttribute("account");
+        response.sendRedirect("home");
     }
 
     /** 
