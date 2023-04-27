@@ -48,6 +48,14 @@
         <servlet-name>checkout</servlet-name>
         <servlet-class>cartController.checkout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>removeItem</servlet-name>
+        <servlet-class>cartController.removeItem</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileControl</servlet-name>
+        <servlet-class>CustomerController.ProfileControl</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>listProduct</servlet-name>
         <url-pattern>/lists</url-pattern>
@@ -95,6 +103,14 @@
     <servlet-mapping>
         <servlet-name>checkout</servlet-name>
         <url-pattern>/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeItem</servlet-name>
+        <url-pattern>/removeCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileControl</servlet-name>
+        <url-pattern>/profile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -3,24 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package cartController;
+package CustomerController;
 
-import DAO.ProductDAO;
-import Entity.Product;
+import DAO.CustomerDAO;
+import Entity.Customer;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author HLC
  */
-public class addToCart extends HttpServlet {
+public class ProfileControl extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,44 +33,18 @@ public class addToCart extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         String pid= request.getParameter("pid"); 
-         String mode=request.getParameter("mode");
-         String num=request.getParameter("quantity");
-         if(mode==null){
-             mode="increase";
-         }
-         int quantity;
-         if(num == null){
-             quantity=1;
-         }else
-             quantity=Integer.parseInt(num);
-         HttpSession session = request.getSession();
-         HashMap<Product,Integer> list =(HashMap<Product,Integer>) session.getAttribute("cart");
-         if(list == null){
-             list = new HashMap<>();
-         }
-         ProductDAO dao= new ProductDAO();
-         Product prod= dao.getProductById(pid);
-         if(mode=="remove"){
-             list.remove(prod);
-         }else if(mode=="increase"){
-             if(list.containsKey(prod)){
-                 int quantity1= list.get(prod);
-                 list.put(prod, quantity1+1);
-             }else{
-                 list.put(prod, quantity);
-             }
-         }else if(mode == "decrease"){
-             if(list.containsKey(prod)){
-                 int quantity1= list.get(prod);
-                 if(quantity1 > 1){
-                     list.put(prod, quantity1 - 1);
-                 }else
-                     list.remove(prod);
-             }
-         }
-         session.setAttribute("cart",list);
-         response.sendRedirect("CartDetail");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ProfileControl</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ProfileControl at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -83,7 +58,17 @@ public class addToCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            //processRequest(request, response);
+            String id= request.getParameter("cid");
+            CustomerDAO dao = new CustomerDAO();
+            Customer cus=dao.getCusById(id);
+            request.setAttribute("c", cus);
+            request.getRequestDispatcher("Profile.jsp").forward(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(ProfileControl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     } 
 
     /** 

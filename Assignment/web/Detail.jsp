@@ -179,6 +179,7 @@
 
                                         <hr>
                                         <form action="addToCart" method="post">
+                                        <input type="hidden" name="pid" value="${p.pid}">    
                                         <div class="row">
                                             <div class="col-sm-5">
                                                 <dl class="param param-inline">

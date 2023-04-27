@@ -33,18 +33,26 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
+                        <c:if test="${sessionScope.account.isAdmin eq 1}">
+                            <li class="nav-item">
                             <a class="nav-link" href="lists">Manager Product</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hello Alias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.account ne null}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Hello ${sessionScope.account.cname}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                            </li>
+                        </c:if>
+                        
+                            <c:if test="${sessionScope.account == null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.jsp">Login</a>
+                                </li>
+                            </c:if>
                     </ul>
 
                     
@@ -106,7 +114,7 @@
                                                         <h6 class="mb-0">${i.value * i.key.price}</h6>
                                                     </div>
                                                     <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                                        <a href="addToCart?pid=${i.key.pid}&mode=remove" class="text-muted"><i class="fas fa-times"></i>x</a>
+                                                        <a href="removeCart?pid=${i.key.pid}" class="text-muted"><i class="fas fa-times"></i>x</a>
                                                     </div>
                                                 </div>
 
@@ -130,19 +138,8 @@
                                                 <h5 class="text-uppercase">items ${sessionScope.cart.size()}</h5>
                                                 <h5>${requestScope.total}</h5>
                                             </div>
-
-                                            <h5 class="text-uppercase mb-3">Shipping</h5>
-
-                                            <div class="mb-4 pb-2">
-                                                <select class="select">
-                                                    <option value="1">Standard-Delivery- €5.00</option>
-                                                    <option value="2">free ship</option>
-                                                    
-                                                </select>
-                                            </div>
-
                                             <hr class="my-4">
-
+                                            
                                             <div class="d-flex justify-content-between mb-5">
                                                 <h5 class="text-uppercase">Total price</h5>
                                                 <h5>${requestScope.total} $</h5>

@@ -19,8 +19,8 @@
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a href="lists" class="navbar-brand">Back to Manager</a>
-            <a class="navbar-brand" href="home">Shoes</a>
+            
+            <a class="navbar-brand" href="home">Back to Store</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -30,18 +30,26 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manager Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hello Alias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+                        <c:if test="${sessionScope.account.isAdmin eq 1}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="lists">Manager Product</a>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.account ne null}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="#">Hello ${sessionScope.account.cname}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                            </li>
+                        </c:if>
+                        
+                            <c:if test="${sessionScope.account == null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.jsp">Login</a>
+                                </li>
+                            </c:if>
                     </ul>
 
                     <form action="search" method="post" class="form-inline my-2 my-lg-0">
@@ -55,7 +63,7 @@
                         </div>
                         <a class="btn btn-success btn-sm ml-3" href="show">
                             <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
+                            <span class="badge badge-light">${sessionScope.cart.size()}</span>
                         </a>
                     </form>
                 </div>
@@ -70,51 +78,39 @@
         
         <div class="modal-dialog">
                 <div class="modal-content">
-                    <form action="editProduct" method="post">
+                    <form action="profile" method="post">
                         <div class="modal-header">						
                             <h4 class="modal-title">edit Profile</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         </div>
                         <div class="modal-body">
-                            
+                            <input type="hidden" name="id" value="${c.cid}">
                             <div class="form-group">
                                 <label>Name</label>
                                 <input name="name" type="text" class="form-control" value="${sessionScope.account.cname}" required>
                             </div>
                             <div class="form-group">
                                 <label>UserName</label>
-                                <input name="username" type="text" class="form-control" value="${p.quantity}" readonly>
+                                <input name="username" type="text" class="form-control" value="${c.username}" readonly>
                             </div>
                             <div class="form-group">
                                 <label>password</label>
-                                <input name="password" type="text" class="form-control" value="${p.price}" required>
-                            </div>
-                            <div class="form-group">
-                                <label>re-password</label>
-                                <input name="password" type="text" class="form-control" value="${p.price}" required>
+                                <input name="password" type="text" class="form-control" value="${c.password}" required>
                             </div>
                             
                             <div class="form-group">
-                                <label for="address"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="address" name="address" id="address" placeholder="address" required/>
+                                <label >address</label>
+                                <input type="text" name="address" class="form-control" value="${c.address}" placeholder="${c.address}" required/>
                             </div>
                             <div class="form-group">
-                                <label>status</label>
-                                <select name="status">
-                                    <option value="1" ${p.status == 1 ? "selected" : ""}>Enable</option>
-                                    <option value="0" ${p.status == 0 ? "selected" : ""}>Disable</option>
-                                </select>
-                            </div>
-                          
-                            <div class="form-group">
-                                <label>Description</label>
-                                <textarea name="description" class="form-control" >${p.description}</textarea>
+                                <label>Phone</label>
+                                <input type="tel" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="${c.phone}" placeholder="123-456-7890" required/>
                             </div>
 
                         </div>
                         <div class="modal-footer">
                             <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Save">
+                            <input type="submit" class="btn btn-success" value="Update">
                         </div>
                     </form>
                 </div>

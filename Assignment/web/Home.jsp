@@ -31,7 +31,7 @@
                         
                         <c:if test="${sessionScope.account ne null}">
                             <li class="nav-item">
-                            <a class="nav-link" href="#">Hello ${sessionScope.account.cname}</a>
+                                <a class="nav-link" href="profile?cid=${sessionScope.account.cid}">Hello ${sessionScope.account.cname}</a>
                             </li>
                             <li class="nav-item">
                             <a class="nav-link" href="logout">Logout</a>

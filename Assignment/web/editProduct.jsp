@@ -30,18 +30,26 @@
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarsExampleDefault">
                     <ul class="navbar-nav m-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Manager Account</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Hello Alias</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Logout</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Login</a>
-                        </li>
+                        <c:if test="${sessionScope.account.isAdmin eq 1}">
+                            <li class="nav-item">
+                            <a class="nav-link" href="lists">Manager Product</a>
+                            </li>
+                        </c:if>
+                        
+                        <c:if test="${sessionScope.account ne null}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="profile?cid=${sessionScope.account.cid}">Hello ${sessionScope.account.cname}</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="logout">Logout</a>
+                            </li>
+                        </c:if>
+                        
+                            <c:if test="${sessionScope.account == null}">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="Login.jsp">Login</a>
+                                </li>
+                            </c:if>
                     </ul>
 
                     <form action="search" method="post" class="form-inline my-2 my-lg-0">
@@ -53,10 +61,7 @@
                                 </button>
                             </div>
                         </div>
-                        <a class="btn btn-success btn-sm ml-3" href="show">
-                            <i class="fa fa-shopping-cart"></i> Cart
-                            <span class="badge badge-light">3</span>
-                        </a>
+                        
                     </form>
                 </div>
             </div>
